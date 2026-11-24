@@ -1,0 +1,103 @@
+<section class="details-page">
+  <a routerLink="/requests" class="back-link">
+    ← Back to My Requests
+  </a>
+
+  @if (isLoading) {
+    <div class="state-message">Loading request details...</div>
+  } @else if (errorMessage) {
+    <div class="state-message error-message">
+      {{ errorMessage }}
+    </div>
+  } @else if (request) {
+    <header class="page-header">
+      <div>
+        <span class="request-id">Request #{{ request.id }}</span>
+        <h1>{{ request.vm_name }}</h1>
+        <p>Infrastructure request details</p>
+      </div>
+
+      <span
+        class="status-badge"
+        [class]=" 'status-badge ' + getStatusClass(request.status) "
+      >
+        {{ getStatusLabel(request.status) }}
+      </span>
+    </header>
+
+    <article class="details-card">
+      <h2>Request Information</h2>
+
+      <div class="details-grid">
+        <div class="detail-item">
+          <span>VM Name</span>
+          <strong>{{ request.vm_name }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Provider</span>
+          <strong>{{ request.provider }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Operating System</span>
+          <strong>{{ request.os }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Environment</span>
+          <strong>{{ request.environment }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>CPU</span>
+          <strong>{{ request.cpu }} vCPU</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Memory</span>
+          <strong>{{ request.ram }} GB</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Storage</span>
+          <strong>{{ request.disk }} GB</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Submitted</span>
+          <strong>{{ request.created_at | date:'medium' }}</strong>
+        </div>
+      </div>
+
+      @if (request.description) {
+        <div class="description">
+          <h3>Description</h3>
+          <p>{{ request.description }}</p>
+        </div>
+      }
+    </article>
+
+    <article class="details-card terraform-card">
+      <div class="terraform-header">
+        <div>
+          <h2>Terraform Configuration</h2>
+          <p>Generated infrastructure configuration (HCL)</p>
+        </div>
+      </div>
+
+      @if (isTerraformLoading) {
+        <div class="state-message">
+          Loading Terraform configuration...
+        </div>
+      } @else if (terraformConfig) {
+        <pre class="terraform-code"><code>{{ terraformConfig.terraform_config }}</code></pre>
+      } @else {
+        <div class="terraform-unavailable">
+          <strong>Configuration not available</strong>
+          <p>{{ terraformErrorMessage }}</p>
+        </div>
+      }
+    </article>
+  }
+</section>
