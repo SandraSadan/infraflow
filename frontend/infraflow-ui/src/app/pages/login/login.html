@@ -75,10 +75,6 @@
           <p class="message error">{{ errorMessage }}</p>
         }
 
-        @if (successMessage) {
-          <p class="message success">{{ successMessage }}</p>
-        }
-
         <button class="submit-button" type="submit" [disabled]="loading">
           {{ loading ? 'Signing in...' : 'Sign in to portal' }}
           @if (!loading) {

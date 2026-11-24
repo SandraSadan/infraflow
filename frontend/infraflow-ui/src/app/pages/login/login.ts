@@ -23,12 +23,10 @@ export class Login {
 
   loading = false;
   errorMessage = '';
-  successMessage = '';
 
   selectAccount(email: string): void {
     this.email.setValue(email);
     this.errorMessage = '';
-    this.successMessage = '';
   }
 
   login(): void {
@@ -39,7 +37,6 @@ export class Login {
 
     this.loading = true;
     this.errorMessage = '';
-    this.successMessage = '';
 
     this.auth.login(this.email.value).subscribe({
       next: (response) => {
