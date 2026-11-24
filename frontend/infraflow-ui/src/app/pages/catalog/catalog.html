@@ -1,1 +1,27 @@
-<p>catalog works!</p>
+<section class="catalog-page">
+  <header class="page-header">
+    <div>
+      <h1>Service Catalog</h1>
+      <p>Choose an infrastructure service to get started.</p>
+    </div>
+  </header>
+
+  <div class="service-grid">
+    <article class="service-card">
+      <div class="service-icon">🖥️</div>
+
+      <div class="service-content">
+        <h2>Virtual Machine</h2>
+        <p>
+          Request a virtual machine on Proxmox or a public cloud provider.
+          Configure compute, memory, storage and operating system.
+        </p>
+        <span class="service-category">Compute</span>
+      </div>
+
+      <a routerLink="/catalog/request" class="service-action">
+        Request VM <span>→</span>
+      </a>
+    </article>
+  </div>
+</section>
