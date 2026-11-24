@@ -1,0 +1,54 @@
+<div class="portal">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-icon">IF</span>
+      <span>InfraFlow</span>
+    </div>
+
+    <div class="nav-section">
+      <span class="nav-heading">WORKSPACE</span>
+
+      @if (isAdmin) {
+        <a routerLink="/approvals" routerLinkActive="active">
+          <span class="nav-icon">✓</span>
+          Approvals
+        </a>
+      } @else {
+        <a routerLink="/catalog" routerLinkActive="active">
+          <span class="nav-icon">▦</span>
+          Service Catalog
+        </a>
+        <a routerLink="/requests" routerLinkActive="active">
+          <span class="nav-icon">☷</span>
+          My Requests
+        </a>
+      }
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar">
+        {{ user?.name?.charAt(0) }}
+      </div>
+
+      <div class="user-info">
+        <strong>{{ user?.name }}</strong>
+        <small>{{ user?.role }}</small>
+      </div>
+
+      <button class="logout-button" (click)="logout()" title="Sign out">
+        ↪
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-area">
+    <header class="topbar">
+      <span>Infrastructure Management</span>
+      <span class="environment-label">DEMO ENVIRONMENT</span>
+    </header>
+
+    <section class="page-content">
+      <router-outlet />
+    </section>
+  </main>
+</div>

@@ -8,21 +8,28 @@ export const routes: Routes = [
       import('./pages/login/login').then(m => m.Login),
   },
   {
-    path: 'catalog',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./pages/catalog/catalog').then(m => m.Catalog),
-  },
-  {
-    path: 'approvals',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./pages/approvals/approvals').then(m => m.Approvals),
-  },
-  {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./layouts/portal-layout/portal-layout')
+        .then(m => m.PortalLayout),
+    children: [
+      {
+        path: 'catalog',
+        loadComponent: () =>
+          import('./pages/catalog/catalog').then(m => m.Catalog),
+      },
+      {
+        path: 'approvals',
+        loadComponent: () =>
+          import('./pages/approvals/approvals').then(m => m.Approvals),
+      },
+      {
+        path: '',
+        redirectTo: 'catalog',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '**',
