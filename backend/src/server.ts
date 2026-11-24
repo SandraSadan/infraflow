@@ -9,6 +9,7 @@ import { configureSaml } from './services/saml.service.js';
 import authRoutes from './routes/auth.routes.js';
 import requestRoutes from './routes/request.routes.js';
 import approvalRoutes from './routes/approval.routes.js';
+import terraformRoutes from './routes/terraform.routes.js';
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.get('/api/db-health', async (_req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/requests', requestRoutes);
 app.use('/api/approvals', approvalRoutes);
+app.use('/api/terraform', terraformRoutes);
 
 app.listen(PORT, () => {
   console.log(`InfraFlow API running on http://localhost:${PORT}`);

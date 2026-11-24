@@ -8,7 +8,8 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "db:setup": "tsx src/database/setup.ts"
+    "db:setup": "tsx src/database/setup.ts",
+    "worker": "tsx src/workers/provisioning.worker.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
   "dependencies": {
     "@node-saml/node-saml": "^5.2.0",
     "@node-saml/passport-saml": "^5.1.1",
+    "amqplib": "^2.4.1",
     "cors": "^2.8.6",
     "dotenv": "^18.0.10",
     "express": "^5.3.0",
@@ -26,6 +28,7 @@
     "pg": "^8.23.1"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.8",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
