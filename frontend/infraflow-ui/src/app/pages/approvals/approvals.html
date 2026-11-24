@@ -1,1 +1,147 @@
-<p>approvals works!</p>
+<section class="approvals-page">
+  <header class="page-header">
+    <div>
+      <h1>Request Approvals</h1>
+      <p>Review and process infrastructure provisioning requests.</p>
+    </div>
+
+    <button
+      type="button"
+      class="refresh-button"
+      (click)="loadRequests()"
+      [disabled]="isLoading"
+    >
+      Refresh
+    </button>
+  </header>
+
+  @if (successMessage) {
+    <div class="alert success-alert" role="status">
+      {{ successMessage }}
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="alert error-alert" role="alert">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (isLoading) {
+    <div class="state-message">Loading approval requests...</div>
+  } @else if (pendingRequests.length === 0) {
+    <div class="empty-state">
+      <h2>No pending approvals</h2>
+      <p>There are currently no infrastructure requests waiting for your approval.</p>
+    </div>
+  } @else {
+    <div class="requests-summary">
+      {{ pendingRequests.length }}
+      pending request{{ pendingRequests.length === 1 ? '' : 's' }}
+    </div>
+
+    <div class="approval-list">
+      @for (request of pendingRequests; track request.id) {
+        <article class="approval-card">
+          <div class="card-header">
+            <div>
+              <h2>{{ request.vm_name }}</h2>
+              <span class="request-id">Request #{{ request.id }}</span>
+            </div>
+
+            <span class="status-badge pending-approval">
+              PENDING APPROVAL
+            </span>
+          </div>
+
+          <div class="requester-info">
+            <span>
+              <strong>Requester:</strong>
+              {{ request.requester_name || 'Unknown' }}
+            </span>
+            @if (request.requester_email) {
+              <span>{{ request.requester_email }}</span>
+            }
+          </div>
+
+          <div class="specifications">
+            <div>
+              <span>Provider</span>
+              <strong>{{ request.provider }}</strong>
+            </div>
+            <div>
+              <span>Operating System</span>
+              <strong>{{ request.os }}</strong>
+            </div>
+            <div>
+              <span>CPU</span>
+              <strong>{{ request.cpu }} vCPU</strong>
+            </div>
+            <div>
+              <span>Memory</span>
+              <strong>{{ request.ram }} GB</strong>
+            </div>
+            <div>
+              <span>Storage</span>
+              <strong>{{ request.disk }} GB</strong>
+            </div>
+            <div>
+              <span>Environment</span>
+              <strong>{{ request.environment }}</strong>
+            </div>
+          </div>
+
+          @if (request.description) {
+            <div class="description">
+              <strong>Description</strong>
+              <p>{{ request.description }}</p>
+            </div>
+          }
+
+          <div class="submitted-date">
+            Submitted: {{ request.created_at | date:'medium' }}
+          </div>
+
+          <div class="comments-field">
+            <label [for]="'comments-' + request.id">
+              Admin comments <span>(optional)</span>
+            </label>
+            <textarea
+              [id]="'comments-' + request.id"
+              rows="3"
+              maxlength="2000"
+              placeholder="Add comments for this decision..."
+              [ngModel]="commentsByRequest[request.id] || ''"
+              (ngModelChange)="commentsByRequest[request.id] = $event"
+              [ngModelOptions]="{ standalone: true }"
+            ></textarea>
+          </div>
+
+          <div class="card-actions">
+            <button
+              type="button"
+              class="reject-button"
+              (click)="processDecision(request.id, 'REJECTED')"
+              [disabled]="processingRequestIds.includes(request.id)"
+            >
+              Reject
+            </button>
+
+            <button
+              type="button"
+              class="approve-button"
+              (click)="processDecision(request.id, 'APPROVED')"
+              [disabled]="processingRequestIds.includes(request.id)"
+            >
+              {{
+                processingRequestIds.includes(request.id)
+                  ? 'Processing...'
+                  : 'Approve'
+              }}
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

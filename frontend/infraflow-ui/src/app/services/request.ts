@@ -30,6 +30,12 @@ export interface InfrastructureRequest {
   requester_email?: string;
 }
 
+export interface ApprovalResponse {
+  success: boolean;
+  message: string;
+  data: InfrastructureRequest;
+}
+
 interface RequestsResponse {
   success: boolean;
   data: InfrastructureRequest[];
@@ -60,5 +66,39 @@ export class RequestService {
     });
 
     return this.http.get<RequestsResponse>(this.apiUrl, { headers });
+  }
+
+  approveRequest(
+    requestId: number,
+    comments?: string,
+  ): Observable<ApprovalResponse> {
+    const token = localStorage.getItem('infraflow_token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post<ApprovalResponse>(
+      `http://localhost:3000/api/approvals/${requestId}/approve`,
+      { comments },
+      { headers },
+    );
+  }
+
+  rejectRequest(
+    requestId: number,
+    comments?: string,
+  ): Observable<ApprovalResponse> {
+    const token = localStorage.getItem('infraflow_token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post<ApprovalResponse>(
+      `http://localhost:3000/api/approvals/${requestId}/reject`,
+      { comments },
+      { headers },
+    );
   }
 }
