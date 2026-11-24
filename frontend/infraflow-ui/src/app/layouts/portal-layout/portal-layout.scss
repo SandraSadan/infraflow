@@ -1,0 +1,169 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.portal {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #1e293b;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  display: flex;
+  flex-direction: column;
+  width: 245px;
+  padding: 26px 18px;
+  box-sizing: border-box;
+  background: #142b4a;
+  color: white;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 38px;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #3978df;
+  font-size: 14px;
+}
+
+.nav-section {
+  display: grid;
+  gap: 8px;
+}
+
+.nav-heading {
+  padding: 0 10px 12px;
+  color: #8fa3bf;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.nav-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 12px;
+  border-radius: 7px;
+  color: #c1ccda;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.nav-section a:hover,
+.nav-section a.active {
+  background: #25466d;
+  color: white;
+}
+
+.nav-icon {
+  width: 20px;
+  text-align: center;
+  font-size: 17px;
+}
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 18px 5px 5px;
+  border-top: 1px solid #34506f;
+}
+
+.user-avatar {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #3978df;
+  font-weight: 700;
+}
+
+.user-info {
+  display: grid;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+
+.user-info strong {
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+}
+
+.user-info small {
+  color: #aab8cb;
+  font-size: 10px;
+}
+
+.logout-button {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.main-area {
+  width: calc(100% - 245px);
+  min-height: 100vh;
+  margin-left: 245px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 68px;
+  padding: 0 32px;
+  border-bottom: 1px solid #e5eaf1;
+  background: white;
+  font-size: 13px;
+}
+
+.environment-label {
+  padding: 6px 10px;
+  border-radius: 5px;
+  background: #edf3ff;
+  color: #2869ce;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.page-content {
+  padding: 32px;
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    width: 190px;
+  }
+
+  .main-area {
+    width: calc(100% - 190px);
+    margin-left: 190px;
+  }
+
+  .page-content {
+    padding: 18px;
+  }
+}
