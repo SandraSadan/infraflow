@@ -1,0 +1,96 @@
+<div class="login-page">
+  <section class="brand-panel">
+    <div class="brand">
+      <div class="brand-icon">IF</div>
+      <span>InfraFlow</span>
+    </div>
+
+    <div class="brand-content">
+      <span class="eyebrow">INFRASTRUCTURE MANAGEMENT</span>
+      <h1>Your infrastructure.<br />One simple workflow.</h1>
+      <p>
+        Request, manage and provision infrastructure through a
+        centralized self-service portal.
+      </p>
+    </div>
+
+    <div class="brand-footer">
+      Infrastructure Self-Service Portal
+    </div>
+  </section>
+
+  <section class="login-panel">
+    <div class="login-card">
+      <span class="eyebrow">WELCOME BACK</span>
+      <h2>Sign in to InfraFlow</h2>
+      <p class="subtitle">
+        Choose a demo account to access the portal.
+      </p>
+
+      <div class="account-options">
+        <button
+          type="button"
+          class="account-option"
+          [class.selected]="email.value === 'requester@infraflow.local'"
+          (click)="selectAccount('requester@infraflow.local')"
+        >
+          <span class="account-avatar requester">R</span>
+          <span class="account-info">
+            <strong>Requester</strong>
+            <small>Submit infrastructure requests</small>
+          </span>
+          <span class="radio-indicator"></span>
+        </button>
+
+        <button
+          type="button"
+          class="account-option"
+          [class.selected]="email.value === 'admin@infraflow.local'"
+          (click)="selectAccount('admin@infraflow.local')"
+        >
+          <span class="account-avatar admin">A</span>
+          <span class="account-info">
+            <strong>Administrator</strong>
+            <small>Review and approve requests</small>
+          </span>
+          <span class="radio-indicator"></span>
+        </button>
+      </div>
+
+      <form (ngSubmit)="login()">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          [formControl]="email"
+          placeholder="Enter your email"
+          autocomplete="username"
+        />
+
+        @if (email.invalid && email.touched) {
+          <small class="field-error">Enter a valid email address.</small>
+        }
+
+        @if (errorMessage) {
+          <p class="message error">{{ errorMessage }}</p>
+        }
+
+        @if (successMessage) {
+          <p class="message success">{{ successMessage }}</p>
+        }
+
+        <button class="submit-button" type="submit" [disabled]="loading">
+          {{ loading ? 'Signing in...' : 'Sign in to portal' }}
+          @if (!loading) {
+            <span>→</span>
+          }
+        </button>
+      </form>
+
+      <p class="demo-note">
+        Demo authentication · No password required
+      </p>
+    </div>
+  </section>
+</div>
+
