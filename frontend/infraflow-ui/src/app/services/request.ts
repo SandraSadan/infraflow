@@ -36,6 +36,22 @@ export interface ApprovalResponse {
   data: InfrastructureRequest;
 }
 
+export interface RequestDetailsResponse {
+  success: boolean;
+  data: InfrastructureRequest;
+}
+
+export interface TerraformConfigResponse {
+  success: boolean;
+  data: {
+    id: number;
+    vm_name: string;
+    provider: string;
+    status: string;
+    terraform_config: string;
+  };
+}
+
 interface RequestsResponse {
   success: boolean;
   data: InfrastructureRequest[];
@@ -98,6 +114,32 @@ export class RequestService {
     return this.http.post<ApprovalResponse>(
       `http://localhost:3000/api/approvals/${requestId}/reject`,
       { comments },
+      { headers },
+    );
+  }
+
+  getRequestById(requestId: number): Observable<RequestDetailsResponse> {
+    const token = localStorage.getItem('infraflow_token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<RequestDetailsResponse>(
+      `${this.apiUrl}/${requestId}`,
+      { headers },
+    );
+  }
+
+  getTerraformConfig(requestId: number): Observable<TerraformConfigResponse> {
+    const token = localStorage.getItem('infraflow_token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<TerraformConfigResponse>(
+      `http://localhost:3000/api/terraform/${requestId}`,
       { headers },
     );
   }

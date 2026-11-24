@@ -1,67 +1,71 @@
 <section class="requests-page">
-  <header class="page-header">
-    <div>
-      <h1>My Requests</h1>
-      <p>Track the status of your infrastructure requests.</p>
-    </div>
-  </header>
+    <header class="page-header">
+        <div>
+            <h1>My Requests</h1>
+            <p>Track the status of your infrastructure requests.</p>
+        </div>
+    </header>
 
-  @if (isLoading) {
+    @if (isLoading) {
     <p class="message">Loading requests...</p>
-  } @else if (errorMessage) {
+    } @else if (errorMessage) {
     <p class="message error">{{ errorMessage }}</p>
-  } @else if (requests.length === 0) {
+    } @else if (requests.length === 0) {
     <div class="empty-state">
-      <h2>No requests yet</h2>
-      <p>Your submitted infrastructure requests will appear here.</p>
+        <h2>No requests yet</h2>
+        <p>Your submitted infrastructure requests will appear here.</p>
     </div>
-  } @else {
+    } @else {
     <div class="request-list">
-      @for (request of requests; track request.id) {
+        @for (request of requests; track request.id) {
         <article class="request-card">
-          <div class="card-header">
-            <div>
-              <h2>{{ request.vm_name }}</h2>
-              <span class="request-id">Request #{{ request.id }}</span>
+            <div class="card-header">
+                <div>
+                    <h2>{{ request.vm_name }}</h2>
+                    <span class="request-id">Request #{{ request.id }}</span>
+                </div>
+
+                <span class="status" [class]=" 'status ' + getStatusClass(request.status) ">
+                    {{ getStatusLabel(request.status) }}
+                </span>
             </div>
 
-            <span class="status" [class]=" 'status ' + getStatusClass(request.status) ">
-              {{ getStatusLabel(request.status) }}
-            </span>
-          </div>
+            <div class="request-details">
+                <div>
+                    <span>Provider</span>
+                    <strong>{{ request.provider }}</strong>
+                </div>
+                <div>
+                    <span>Operating System</span>
+                    <strong>{{ request.os }}</strong>
+                </div>
+                <div>
+                    <span>CPU</span>
+                    <strong>{{ request.cpu }} vCPU</strong>
+                </div>
+                <div>
+                    <span>Memory</span>
+                    <strong>{{ request.ram }} GB</strong>
+                </div>
+                <div>
+                    <span>Storage</span>
+                    <strong>{{ request.disk }} GB</strong>
+                </div>
+                <div>
+                    <span>Environment</span>
+                    <strong>{{ request.environment }}</strong>
+                </div>
+            </div>
 
-          <div class="request-details">
-            <div>
-              <span>Provider</span>
-              <strong>{{ request.provider }}</strong>
-            </div>
-            <div>
-              <span>Operating System</span>
-              <strong>{{ request.os }}</strong>
-            </div>
-            <div>
-              <span>CPU</span>
-              <strong>{{ request.cpu }} vCPU</strong>
-            </div>
-            <div>
-              <span>Memory</span>
-              <strong>{{ request.ram }} GB</strong>
-            </div>
-            <div>
-              <span>Storage</span>
-              <strong>{{ request.disk }} GB</strong>
-            </div>
-            <div>
-              <span>Environment</span>
-              <strong>{{ request.environment }}</strong>
-            </div>
-          </div>
+            <footer class="card-footer">
+                <span>Submitted {{ request.created_at | date:'medium' }}</span>
 
-          <footer class="card-footer">
-            <span>Submitted {{ request.created_at | date:'medium' }}</span>
-          </footer>
+                <a [routerLink]="['/requests', request.id]" class="details-link">
+                    View Details →
+                </a>
+            </footer>
         </article>
-      }
+        }
     </div>
-  }
+    }
 </section>

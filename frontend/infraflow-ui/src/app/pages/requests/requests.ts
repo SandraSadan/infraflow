@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { RequestService, InfrastructureRequest } from '../../services/request';
 
 @Component({
   selector: 'app-requests',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './requests.html',
   styleUrl: './requests.scss',
 })
