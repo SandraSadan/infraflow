@@ -1,0 +1,143 @@
+.requests-page {
+  padding: 32px;
+}
+
+.page-header {
+  margin-bottom: 28px;
+
+  h1 {
+    margin: 0 0 8px;
+    color: #172033;
+    font-size: 26px;
+    font-weight: 650;
+  }
+
+  p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+  }
+}
+
+.request-list {
+  display: grid;
+  gap: 18px;
+}
+
+.request-card {
+  padding: 22px 24px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 22px;
+
+  h2 {
+    margin: 0 0 6px;
+    color: #172033;
+    font-size: 18px;
+  }
+}
+
+.request-id {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.status {
+  padding: 6px 11px;
+  border-radius: 20px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pending-approval,
+.approved {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.rejected,
+.failed {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.provisioning,
+.submitted {
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+.pending-configuration {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.request-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  span {
+    color: #94a3b8;
+    font-size: 12px;
+  }
+
+  strong {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+.card-footer {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.message,
+.empty-state {
+  padding: 32px;
+  text-align: center;
+  color: #64748b;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+@media (max-width: 650px) {
+  .requests-page {
+    padding: 20px;
+  }
+
+  .request-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card-header {
+    flex-direction: column;
+  }
+}

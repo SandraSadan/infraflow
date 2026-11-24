@@ -1,0 +1,92 @@
+<section class="request-page">
+    <header class="page-header">
+        <a routerLink="/catalog" class="back-link">← Back to Service Catalog</a>
+        <h1>Request a Virtual Machine</h1>
+        <p>Configure the infrastructure resources you need.</p>
+    </header>
+
+    @if (successMessage) {
+    <div class="feedback success">{{ successMessage }}</div>
+    }
+
+    @if (errorMessage) {
+    <div class="feedback error">{{ errorMessage }}</div>
+    }
+
+    <form [formGroup]="requestForm" (ngSubmit)="submitRequest()" class="request-form">
+        <div class="form-grid">
+            <div class="form-field">
+                <label for="vm_name">VM Name</label>
+                <input id="vm_name" type="text" formControlName="vm_name" placeholder="e.g. development-server" />
+                @if (requestForm.controls.vm_name.touched && requestForm.controls.vm_name.invalid) {
+                <small>Enter a name using letters, numbers or hyphens.</small>
+                }
+            </div>
+
+            <div class="form-field">
+                <label for="provider">Infrastructure Provider</label>
+                <select id="provider" formControlName="provider">
+                    <option value="PROXMOX">Proxmox</option>
+                    <option value="AWS">AWS</option>
+                    <option value="AZURE">Microsoft Azure</option>
+                    <option value="GCP">Google Cloud</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label for="os">Operating System</label>
+                <select id="os" formControlName="os">
+                    <option value="Ubuntu 24.04">Ubuntu 24.04</option>
+                    <option value="Ubuntu 22.04">Ubuntu 22.04</option>
+                    <option value="Debian 12">Debian 12</option>
+                    <option value="Windows Server 2022">Windows Server 2022</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label for="environment">Environment</label>
+                <select id="environment" formControlName="environment">
+                    <option value="DEV">Development</option>
+                    <option value="STAGE">Staging</option>
+                    <option value="PROD">Production</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label for="cpu">CPU (vCPU)</label>
+                <input id="cpu" type="number" formControlName="cpu" min="1" max="32" />
+                @if (requestForm.controls.cpu.touched && requestForm.controls.cpu.invalid) {
+                    <small>CPU must be between 1 and 32 vCPUs.</small>
+                }
+            </div>
+
+            <div class="form-field">
+                <label for="ram">Memory (GB)</label>
+                <input id="ram" type="number" formControlName="ram" min="1" max="128" />
+                @if (requestForm.controls.ram.touched && requestForm.controls.ram.invalid) {
+                    <small>Memory must be between 1 and 128 GB.</small>
+                }
+            </div>
+
+            <div class="form-field">
+                <label for="disk">Storage (GB)</label>
+                <input id="disk" type="number" formControlName="disk" min="10" max="2000" />
+                @if (requestForm.controls.disk.touched && requestForm.controls.disk.invalid) {
+                    <small>Storage must be between 10 and 2000 GB.</small>
+                }
+            </div>
+
+            <div class="form-field full-width">
+                <label for="description">Description (Optional)</label>
+                <textarea id="description" formControlName="description" rows="3" maxlength="500"
+                    placeholder="Describe the purpose of this virtual machine"></textarea>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" [disabled]="isSubmitting">
+                {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
+            </button>
+        </div>
+    </form>
+</section>
