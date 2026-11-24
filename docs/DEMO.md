@@ -168,3 +168,23 @@ The following capabilities require additional environment configuration or imple
 - Complete external job status polling and infrastructure lifecycle management.
 
 The demo focuses on the implemented application workflows rather than claiming a fully operational production provisioning platform.
+
+## Application Screenshots
+
+### 1. Service Catalog
+![Service Catalog](screenshots/requester-catalog.png)
+
+### 2. VM Request Form
+![VM Request Form](screenshots/req-vm-form.png)
+
+### 3. My Requests
+![My Requests](screenshots/infra-req-list.png)
+
+### 4. Admin Approvals
+![Admin Approvals](screenshots/admin-approvals-page.png)
+
+### 5. Request Details
+![Request Details](screenshots/req-success.png)
+
+### 6. Terraform Configuration
+![Terraform Configuration](screenshots/terraform-integration.png)
